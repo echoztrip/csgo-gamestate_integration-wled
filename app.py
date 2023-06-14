@@ -57,8 +57,13 @@ class MyServer(HTTPServer):
         self.send_to_wled(color = [[255, 0, 0],[0,0,0],[0,0,0]])
 
     def send_to_wled(self, color=[[255,255,255],[0,0,0],[0,0,0]], effects=0, data=None):
-        #sx=self.wled_stat.state.seg.sx
-        #print(self.wled_stat['seg'][0]['sx'])
+        #original line below
+		#sx=self.wled_stat.state.seg.sx
+        #print line below for testing
+        #print(self.wled_stat)
+        #adjusted sx line in case required for debugging
+        #sx = self.wled_stat['seg'][0]['sx']
+
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain', 'Content-Encoding': 'utf-8'}
         if data is None:
             data = {"seg":[{"col":color, "fx": effects}]}
@@ -89,7 +94,11 @@ class MyRequestHandler(BaseHTTPRequestHandler):
             if round_phase == 'over':
                 self.server.stop_timer30()
                 self.server.stop_timer35()
+				#test
+                for seg in self.server.wled_stat['seg']: seg['on'] = True
                 self.server.send_to_wled(data = self.server.wled_stat)
+                #test
+                #print(self.server.wled_stat)
         
         if bomb_state != self.server.bomb_state:
             self.server.bomb_state = bomb_state
@@ -98,6 +107,8 @@ class MyRequestHandler(BaseHTTPRequestHandler):
                 if bomb_state == 'planted':
                     self.server.start_timer30()
                     self.server.start_timer35()
+				    #test
+                    for seg in self.server.wled_stat['seg']: seg['on'] = True
                     self.server.send_to_wled(color = [[0, 255, 0],[0,0,0],[0,0,0]])
 
     def get_round_phase(self, payload):
