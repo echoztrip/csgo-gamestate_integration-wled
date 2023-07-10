@@ -17,6 +17,7 @@ Place the unzipped "dist" folder in any directory.
 Copy "gamestate_integration_wled.cfg" to "csgo/cfg" directory.    
 For example `D:\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg\gamestate_integration_wled.cfg`   
 Adjust the IP address in the config.json to point to your WLED IP (dist/config.json)   
-Run csgoWled.exe
+Run csgoWled.exe (from original developer)
+Alternatively you can run the source python script with "python -i app.py"
 
 [Counter-Strike: Global Offensive Game State Integration](https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Game_State_Integration)
